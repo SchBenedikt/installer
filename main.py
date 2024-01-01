@@ -22,14 +22,9 @@ def download_file(url, destination_folder="."):
 
 # Example URLs
 urls = [
-    "https://github.com/SchBenedikt/Text-Editor/releases/download/v2024.01.01/text-editor.exe",
-    "https://github.com/SchBenedikt/Text-Editor/blob/main/bold.png",
-    "https://github.com/SchBenedikt/Text-Editor/blob/main/italic.png",
-  "https://github.com/SchBenedikt/Text-Editor/blob/main/change_color.png",
-  "https://github.com/SchBenedikt/Text-Editor/blob/main/change_bg_color.png",
-  "https://github.com/SchBenedikt/Text-Editor/blob/main/decrease_font.png",
-  "https://github.com/SchBenedikt/Text-Editor/blob/main/increase_font.png",
-  "https://github.com/SchBenedikt/Text-Editor/blob/main/underline.png"
+    "https://github.com/SchBenedikt/Text-Editor/blob/main/decrease_font.png",
+    "https://github.com/SchBenedikt/Text-Editor/blob/main/auth.py",
+    "https://github.com/SchBenedikt/Text-Editor/blob/main/italic.png"
 ]
 
 # Target folder for download
@@ -38,6 +33,18 @@ download_folder = "Text-Editor"
 # Create the target folder if it doesn't exist
 os.makedirs(download_folder, exist_ok=True)
 
+# Flag to track successful downloads
+success = True
+
 # Iterate through the URLs and download the files
 for url in urls:
     download_file(url, download_folder)
+    # Check if the download was unsuccessful
+    if not os.path.exists(os.path.join(download_folder, url.split("/")[-1])):
+        success = False
+
+# Display the overall success message
+if success:
+    print("All files were downloaded successfully.")
+else:
+    print("Some files failed to download. Please check the error messages above.")
